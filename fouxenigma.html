@@ -4,15 +4,28 @@
     <script src="Reel.js" type="text/ecmascript"></script>
     <script type="text/javascript">
 
-      //Create character mappings.
-      const r1 = "WF.LYGAIT9_7PEZSCJMKODHRV83?X205N1UQ64B";
-      const r2 = "JB6HOAS?RLTF4YE057MG_P81N.XDZIUCV29WKQ3";
-      //const r1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890._?"
-      //const r2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890._?"
-      const reel = new Reel(r1,r2);
 
       $(function(){
 
+        //Create character mappings.
+        //const r1 = "WF.LYGAIT9_7PEZSCJMKODHRV83?X205N1UQ64B";
+        //const r2 = "JB6HOAS?RLTF4YE057MG_P81N.XDZIUCV29WKQ3";
+        //const r1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890._?"
+        //const r2 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890._?"
+        let reel = {};
+
+        $("textarea").prop('disabled',true)
+        $("select").prop('disabled',false)
+
+        $("button[name=build]").click(function(){
+          let r1 = $("select[name=r1]").val();
+          let r2 = $("select[name=r1]").val();
+          reel = new Reel(r1,r2);
+
+          $("textarea").prop('disabled',false)
+          $("select").prop('disabled',true)
+          $("button").prop('disabled',true)
+        });
         //Encrypt text as user keys it in
         $("textarea[name=plain_text]").keyup(function(){
           //convert to upper case and replace spaces with underscores
@@ -53,7 +66,20 @@
     </script>
   </head>
   <body>
-    Encryption Key: <input type="number" name="key" min=0, max=9999/>
+    r1:
+    <select type="text" name="r1"/>
+      <option value="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890._?">ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890._?</option>
+      <option value="WF.LYGAIT9_7PEZSCJMKODHRV83?X205N1UQ64B">WF.LYGAIT9_7PEZSCJMKODHRV83?X205N1UQ64B</option>
+      <option value="JB6HOAS?RLTF4YE057MG_P81N.XDZIUCV29WKQ3">JB6HOAS?RLTF4YE057MG_P81N.XDZIUCV29WKQ3</option>
+    </select>
+    r2:
+    <select type="text" name="r2"/>
+      <option value="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890._?">ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890._?</option>
+      <option value="WF.LYGAIT9_7PEZSCJMKODHRV83?X205N1UQ64B">WF.LYGAIT9_7PEZSCJMKODHRV83?X205N1UQ64B</option>
+      <option value="JB6HOAS?RLTF4YE057MG_P81N.XDZIUCV29WKQ3">JB6HOAS?RLTF4YE057MG_P81N.XDZIUCV29WKQ3</option>
+    </select>
+    Encryption Key: <input type="number" name="key" min=0, max=9999 value=0/>
+    <button name="build">Build FouxEnigma</button>
     <br>
     <span><b>Plain Text:</b></span><br>
     <textarea name="plain_text" rows="8" cols="80"></textarea>
